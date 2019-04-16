@@ -39,11 +39,11 @@ RCT_EXPORT_METHOD(decrypt:(NSString *)base64 key:(NSString *)key iv:(NSString *)
 }
 
 RCT_EXPORT_METHOD(pbkdf2:(NSString *)password salt:(NSString *)salt
-                  cost:(NSInteger)cost length:(NSInteger)length
+                  cost:(NSInteger)cost length:(NSInteger)length hashAlgo:(NSString *)hashAlgo
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
     NSError *error = nil;
-    NSString *data = [AesCrypt pbkdf2:password salt:salt cost:cost length:length];
+    NSString *data = [AesCrypt pbkdf2:password salt:salt cost:cost length:length hashAlgo:hashAlgo];
     if (data == nil) {
         reject(@"keygen_fail", @"Key generation failed", error);
     } else {

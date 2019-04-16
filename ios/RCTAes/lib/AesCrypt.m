@@ -35,7 +35,7 @@
     return data;
 }
 
-+ (NSString *) pbkdf2:(NSString *)password salt: (NSString *)salt cost: (NSInteger)cost length: (NSInteger)length {
++ (NSString *) pbkdf2:(NSString *)password salt: (NSString *)salt cost: (NSInteger)cost length: (NSInteger)length hashAlgo: (NSString *)hashAlgo {
     // Data of String to generate Hash key(hexa decimal string).
     NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
     NSData *saltData = [salt dataUsingEncoding:NSUTF8StringEncoding];
@@ -50,7 +50,7 @@
                     passwordData.length,
                     saltData.bytes,
                     saltData.length,
-                    kCCPRFHmacAlgSHA512,
+                    [hashAlgo isEqual:@"sha256"] ? kCCPRFHmacAlgSHA256 : kCCPRFHmacAlgSHA512,
                     cost,
                     hashKeyData.mutableBytes,
                     hashKeyData.length);
